@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "852433560066",
+    "project_id": "runeschatdatabase",
+    "storage_bucket": "runeschatdatabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852433560066:android:27b16fec30ca4245477d1b",
+        "android_client_info": {
+          "package_name": "com.example.runeschat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852433560066-rlddr6kl51ktnd6ucocf0lpmebhqi9tu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkf_9TOBR-Oj3w_n1wCZY7uvyS_6o8Yjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852433560066-rlddr6kl51ktnd6ucocf0lpmebhqi9tu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
