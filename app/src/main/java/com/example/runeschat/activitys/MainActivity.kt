@@ -1,9 +1,9 @@
-package com.example.runeschat
+package com.example.runeschat.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.runeschat.activitys.sign_in
+import com.example.runeschat.R
 
 class MainActivity : AppCompatActivity()
 {
