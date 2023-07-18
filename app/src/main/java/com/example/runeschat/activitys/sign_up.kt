@@ -3,9 +3,12 @@ package com.example.runeschat.activitys
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Base64
 import android.util.Patterns
 import android.view.View
@@ -19,7 +22,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.runeschat.R
+import com.example.runeschat.utilites.Constants
+import com.google.firebase.firestore.FirebaseFirestore
+import com.makeramen.roundedimageview.RoundedImageView
 import java.io.ByteArrayOutputStream
+import java.io.FileNotFoundException
+import java.io.InputStream
 
 class sign_up : AppCompatActivity() {
 
@@ -32,6 +40,8 @@ class sign_up : AppCompatActivity() {
     var button : Button? = null
     var progressBar : ProgressBar? = null
     var frameL : FrameLayout? = null
+    var imageProfile : RoundedImageView? = null
+    var textAddImage : TextView? = null
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +52,9 @@ class sign_up : AppCompatActivity() {
         inputPassword = findViewById(R.id.editPasswordSignup)
         inputPassword2 = findViewById(R.id.editPassword2Signup)
         progressBar = findViewById(R.id.sign_up_progressBar)
+        frameL = findViewById(R.id.layoutImage)
+        imageProfile = findViewById(R.id.imageProfile)
+        textAddImage = findViewById(R.id.textAddImage)
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             window.setFlags(
@@ -56,32 +69,65 @@ class sign_up : AppCompatActivity() {
             startActivity(intent)
         }
         button = findViewById(R.id.sign_up_button)
-        button?.setOnClickListener {
-            if (isValidSignUpDetails()) signUp()
+        button?.setOnClickListener {if (isValidSignUpDetails()) signUp()}
+
+        frameL?.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            pickImage.launch(intent)
         }
+
     }
 
     fun signUp(){
-        Toast.makeText(this,"Регистрация в разработке",Toast.LENGTH_SHORT).show()
+        loading(true)
+        val database : FirebaseFirestore = FirebaseFirestore.getInstance()
+        val users : HashMap<String,Any> = hashMapOf<String,Any>()
+        users.put(Constants.KEY_NAME,inputName?.text.toString())
+        users.put(Constants.KEY_EMAIL,inputEmail?.text.toString())
+        users.put(Constants.KEY_PASSWORD,inputPassword?.text.toString())
+        users.put(Constants.KEY_IMAGE,encodedImage)
+        database.collection(Constants.KEY_COLECTION_USERS)
+            .add(users)
+            .addOnSuccessListener {
+
+            }
+            .addOnFailureListener {
+
+            }
+        //Toast.makeText(this,"Регистрация в разработке",Toast.LENGTH_SHORT).show()
     }
 
     private fun encodeImage(bitmap: Bitmap) : String
     {
-        var previewWidth = 150
-        var previewHeight = bitmap.height * previewWidth / bitmap.width
+        val previewWidth = 150
+        val previewHeight = bitmap.height * previewWidth / bitmap.width
         val previewBitmap = Bitmap.createScaledBitmap(bitmap,previewWidth,previewHeight,false)
         val byteArrayOutputStream :ByteArrayOutputStream = ByteArrayOutputStream()
         previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50 , byteArrayOutputStream)
-        var bytes = byteArrayOutputStream.toByteArray()
+        val bytes = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
-    //private fun pickImage : ActivityResultLauncher<Intent> = registerForActivityResult(
-    //    ActivityResultContracts.StartActivityForResult(),
-    //    result -> {
-
-    //    }
-    //)
+    @Suppress("UNUSED_LAMBDA_EXPRESSION")
+    private val pickImage : ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){result -> {
+            if(result.resultCode != null){
+                if(result.data != null){
+                    val imageUri = result.data!!.data
+                    try {
+                        val inputStream : InputStream? = contentResolver.openInputStream(imageUri!!)
+                        val bitmap : Bitmap = BitmapFactory.decodeStream(inputStream)
+                        imageProfile?.setImageBitmap(bitmap)
+                        textAddImage?.visibility = View.GONE
+                        encodedImage = encodeImage(bitmap)
+                    } catch ( e : FileNotFoundException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
+    }
     private fun isValidSignUpDetails() : Boolean{
         if (encodedImage == null) {
             Toast.makeText(this,"Selected profile image",Toast.LENGTH_SHORT).show()
