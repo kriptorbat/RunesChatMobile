@@ -67,7 +67,7 @@ class sign_up : AppCompatActivity() {
         users.put(Constants.KEY_EMAIL,binding.editEmailSignup.text.toString())
         users.put(Constants.KEY_PASSWORD,binding.editPasswordSignup.text.toString())
         users.put(Constants.KEY_IMAGE,encodedImage)
-        database.collection(Constants.KEY_COLECTION_USERS)
+        database.collection(Constants.KEY_COLLECTION_USERS)
             .add(users)
             .addOnSuccessListener {
                 loading(false)
@@ -96,7 +96,6 @@ class sign_up : AppCompatActivity() {
         return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
-    //@Suppress("UNUSED_LAMBDA_EXPRESSION")
     private val pickImage : ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
