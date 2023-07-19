@@ -10,30 +10,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.runeschat.R
+import com.example.runeschat.databinding.ActivitySignInBinding
+import com.example.runeschat.databinding.ActivitySignUpBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class sign_in() : AppCompatActivity() {
 
+    lateinit var binding : ActivitySignInBinding
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setListner()
 
         //FullScreen
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-        val sign_in_register : TextView = findViewById(R.id.sign_in_signup)
-        val sign_in_button : Button = findViewById(R.id.sign_in_button)
-
-        sign_in_register.setOnClickListener {
-            val intent = Intent(this,sign_up::class.java)
-            startActivity(intent)
-        }
-        sign_in_button.setOnClickListener { addDataToFirestore() }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         //Keyboard is visible
         //val r = Rect()
@@ -46,6 +39,14 @@ class sign_in() : AppCompatActivity() {
         //} else {
         //    Toast.makeText(this, "keyboard closed", Toast.LENGTH_LONG).show();
         //}
+    }
+
+    private fun setListner(){
+        binding.signInSignup.setOnClickListener {
+            val intent = Intent(this,sign_up::class.java)
+            startActivity(intent)
+        }
+        binding.signInButton.setOnClickListener { addDataToFirestore() }
     }
     private fun addDataToFirestore()
     {

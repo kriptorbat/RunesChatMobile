@@ -6,6 +6,7 @@ import com.google.firebase.messaging.RemoteMessage
 
 open class MessegingService : FirebaseMessagingService() {
 
+
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d("FCM","Token: ${token}")
