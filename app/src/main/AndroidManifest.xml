@@ -19,7 +19,6 @@
             android:exported="false" />
         <activity
             android:name=".activitys.sign_in"
-            android:theme="@style/Theme.RunesChat.NoActionBarStatusBar"
             android:exported="false" />
         <activity
             android:name=".activitys.MainActivity"
