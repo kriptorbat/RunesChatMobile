@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.view.WindowManager
 import android.widget.Toast
+import com.example.runeschat.UsersActivity
 import com.example.runeschat.databinding.ActivityMainBinding
 import com.example.runeschat.utilites.Constants
 import com.example.runeschat.utilites.PreferenceManager
@@ -43,6 +44,10 @@ class MainActivity : AppCompatActivity()
 
     private fun setListners(){
         binding.imageSignOut.setOnClickListener{signOut()}
+        binding.fabnewChat.setOnClickListener{
+            val intent = Intent(this,UsersActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun loadUser(){
         binding.textName.text = preferenceManager.getString(Constants.KEY_NAME)
@@ -60,7 +65,6 @@ class MainActivity : AppCompatActivity()
         val documentReference : DocumentReference = database.collection(Constants.KEY_COLLECTION_USERS).document(
             preferenceManager.getString(Constants.KEY_USERS_ID))
         documentReference.update(Constants.KEY_FMC_TOKEN,token)
-            .addOnSuccessListener{ unused -> Toast.makeText(this,"Token update",Toast.LENGTH_SHORT).show()}
             .addOnFailureListener { e ->  Toast.makeText(this,"Unable to update token",Toast.LENGTH_SHORT).show()}
     }
     fun signOut(){
