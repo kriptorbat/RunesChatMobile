@@ -15,7 +15,11 @@
         android:theme="@style/Theme.RunesChat"
         tools:targetApi="31">
         <activity
-            android:name=".UsersActivity"
+            android:name=".activitys.ChatActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.UsersActivity"
             android:exported="false" />
         <activity
             android:name=".activitys.sign_up"

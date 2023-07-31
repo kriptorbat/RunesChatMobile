@@ -1,7 +1,6 @@
 package com.example.runeschat.activitys
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,6 @@ import android.os.Bundle
 import android.util.Base64
 import android.view.WindowManager
 import android.widget.Toast
-import com.example.runeschat.UsersActivity
 import com.example.runeschat.databinding.ActivityMainBinding
 import com.example.runeschat.utilites.Constants
 import com.example.runeschat.utilites.PreferenceManager
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity()
     private fun setListners(){
         binding.imageSignOut.setOnClickListener{signOut()}
         binding.fabnewChat.setOnClickListener{
-            val intent = Intent(this,UsersActivity::class.java)
+            val intent = Intent(this, UsersActivity::class.java)
             startActivity(intent)
         }
     }

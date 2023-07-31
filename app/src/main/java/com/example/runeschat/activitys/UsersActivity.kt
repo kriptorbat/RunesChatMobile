@@ -1,21 +1,21 @@
-package com.example.runeschat
+package com.example.runeschat.activitys
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.runeschat.adapters.UsersAdapter
 import com.example.runeschat.databinding.ActivityUsersBinding
+import com.example.runeschat.listners.UserListner
 import com.example.runeschat.models.User
 import com.example.runeschat.utilites.Constants
 import com.example.runeschat.utilites.PreferenceManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
-class UsersActivity : AppCompatActivity() {
+class UsersActivity : AppCompatActivity(), UserListner {
 
     lateinit var binding : ActivityUsersBinding
     lateinit var preferenceManager: PreferenceManager
@@ -57,7 +57,7 @@ class UsersActivity : AppCompatActivity() {
                         users.add(user)
                     }
                     if (users.size > 0){
-                        val usersAdapter = UsersAdapter(users)
+                        val usersAdapter = UsersAdapter(users,this)
                         binding.userRecyclerView.adapter = usersAdapter
                         binding.userRecyclerView.visibility = View.VISIBLE
                     } else {
@@ -78,5 +78,12 @@ class UsersActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.INVISIBLE
         }
+    }
+
+    override fun onUserClicked(user: User) {
+        val intent = Intent(applicationContext,ChatActivity::class.java)
+        intent.putExtra(Constants.KEY_USER,user)
+        startActivity(intent)
+        finish()
     }
 }
