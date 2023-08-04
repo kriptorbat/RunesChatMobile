@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@drawable/cardview_background1"
+    android:foregroundTint="@color/white"
     tools:context=".activitys.MainActivity">
 
     <ImageView
@@ -40,7 +41,7 @@
         android:background="@drawable/backgroun_icon"
         android:contentDescription="@string/app_name"
         android:src="@drawable/baseline_power_settings_new_24"
-        android:tint="@color/white"
+        android:tint="@color/c3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="#8A2B2E3D"
+        android:background="@color/c1"
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
         android:textColor="@color/white"
@@ -64,10 +65,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textName"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="0.0">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/c1"
+            android:fontFamily="sans-serif-condensed-light"
+            android:padding="5dp"
+            android:text="@string/Welcome"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -77,6 +90,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="48dp"
         android:clickable="true"
+        android:tint="@color/c3"
+        app:backgroundTint="@color/c1"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add"

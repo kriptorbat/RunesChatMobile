@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_sent_message"
         android:padding="@dimen/_12sdp"
+        app:layout_constraintWidth_max="wrap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8"/>
