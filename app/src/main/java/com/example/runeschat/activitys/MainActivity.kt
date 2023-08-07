@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import com.example.runeschat.R
 import com.example.runeschat.databinding.ActivityMainBinding
 import com.example.runeschat.utilites.Constants
 import com.example.runeschat.utilites.PreferenceManager
@@ -35,9 +37,19 @@ class MainActivity : AppCompatActivity()
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
+        val animForText = AnimationUtils.loadAnimation(this,R.anim.text_anim)
+        val animForImage = AnimationUtils.loadAnimation(this,R.anim.image_anim)
+        val animForButton = AnimationUtils.loadAnimation(this,R.anim.button_anim)
+
+        binding.textName.startAnimation(animForText)
+        binding.imageProfile.startAnimation(animForImage)
+        binding.imageSignOut.startAnimation(animForImage)
+        binding.frame.startAnimation(animForButton)
+
         loadUser()
         getToken()
         setListners()
+
     }
 
     private fun setListners(){

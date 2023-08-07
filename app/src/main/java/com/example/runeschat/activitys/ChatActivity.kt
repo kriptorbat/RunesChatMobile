@@ -37,11 +37,12 @@ class ChatActivity : AppCompatActivity() {
     lateinit var preferenceManager: PreferenceManager
     lateinit var database : FirebaseFirestore
 
+    @SuppressLint("AppCompatMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        actionBar?.setBackgroundDrawable(ColorDrawable(Color.BLUE))
         //if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) window.setFlags(
         //    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
         //    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)

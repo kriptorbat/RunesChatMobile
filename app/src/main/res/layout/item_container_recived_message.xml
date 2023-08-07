@@ -22,8 +22,6 @@
         android:layout_marginLeft="@dimen/_4sdp"
         android:background="@drawable/background_received_message"
         android:padding="@dimen/_12sdp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_10sdp"
         app:layout_constraintWidth_max="wrap"
         app:layout_constraintStart_toEndOf="@+id/imageProfile"
         app:layout_constraintTop_toTopOf="parent"
